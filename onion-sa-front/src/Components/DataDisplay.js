@@ -16,50 +16,55 @@ const DataDisplay = () => {
       const regionResponse = await getSalesByRegion();
       const productResponse = await getSalesByProduct();
       const ordersResponse = await getOrders();
-      setSalesByRegion(regionResponse.data);
-      setSalesByProduct(productResponse.data);
-      setOrders(ordersResponse.data);
+      setSalesByRegion(regionResponse);
+      setSalesByProduct(productResponse);
+      setOrders(ordersResponse);
     };
     fetchData();
   }, []);
 
-  const getPieChartData = (data, labelKey, valueKey) => ({
+  const getPieChartData = (data, labelKey, valueKey) => (
+    {
     labels: data.map(item => item[labelKey]),
-    datasets: [{
+    datasets: [
+      {
       data: data.map(item => item[valueKey]),
       backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
     }],
   });
 
+
   return (
-    <div>
-      <h1>Exibição de Dados</h1>
-      <div>
-        <h2>Vendas por Região</h2>
-        <Pie data={getPieChartData(salesByRegion, 'Region', 'TotalSales')} />
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+      <h1 className="text-2xl font-bold mb-4">Exibição de Dados</h1>
+      <div className="mb-8 w-full max-w-md">
+        <h2 className="text-xl font-semibold mb-2">Vendas por Região</h2>
+        <Pie data={getPieChartData(salesByRegion, 'region', 'totalSales')} />
       </div>
-      <div>
-        <h2>Vendas por Produto</h2>
-        <Pie data={getPieChartData(salesByProduct, 'Product', 'TotalSales')} />
+      <div className="mb-8 w-full max-w-md">
+        <h2 className="text-xl font-semibold mb-2">Vendas por Produto</h2>
+        <Pie data={getPieChartData(salesByProduct, 'product', 'totalSales')} />
       </div>
-      <div>
-        <h2>Lista de Pedidos</h2>
-        <table>
+      <div className="w-full max-w-4xl">
+        <h2 className="text-xl font-semibold mb-2">Lista de Pedidos</h2>
+        <table className="min-w-full bg-white">
           <thead>
             <tr>
-              <th>Cliente</th>
-              <th>Produto</th>
-              <th>Valor Final</th>
-              <th>Data de Entrega</th>
+              <th className="py-2 px-4 border-b">Cliente</th>
+              <th className="py-2 px-4 border-b">Produto</th>
+              <th className="py-2 px-4 border-b">Valor Final</th>
+              <th className="py-2 px-4 border-b">Data de Entrega</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((order, index) => (
-              <tr key={index}>
-                <td>{order.Cliente}</td>
-                <td>{order.Produto}</td>
-                <td>{order.ValorFinal}</td>
-                <td>{new Date(order.DataEntrega).toLocaleDateString()}</td>
+              <tr key={index} className="text-center">
+                <td className="py-2 px-4 border-b">{order.cliente}</td>
+                <td className="py-2 px-4 border-b">{order.produto}</td>
+                <td className="py-2 px-4 border-b">{order.valorFinal}</td>
+                <td className="py-2 px-4 border-b">
+                  {new Date(order.dataEntrega).toLocaleDateString()}
+                </td>
               </tr>
             ))}
           </tbody>

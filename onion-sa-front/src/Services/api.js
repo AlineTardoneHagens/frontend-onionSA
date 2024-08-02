@@ -1,37 +1,44 @@
 // src/api.js
-import axios from 'axios';
+import axios from 'axios'
 
 // Configure a URL base da API
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api/', // Substitua com a URL da sua API
+  baseURL: 'http://localhost:5087/api/',
   headers: {
     'Content-Type': 'application/json',
   },
-});
+})
 
 // Função para importar pedidos
 export const importOrders = (file) => {
-  const formData = new FormData();
-  formData.append('file', file);
-  
-  return api.post('import/import', formData, {
+  const formData = new FormData()
+  formData.append('file', file)
+
+  return api.post('Import', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
-  });
-};
+  },
+  )
+}
 
 // Função para obter vendas por região
-export const getSalesByRegion = () => {
-  return api.get('sales/region');
-};
+export const getSalesByRegion = async () => {
+  return await consultar('Pedidos/region');
+}
 
 // Função para obter vendas por produto
-export const getSalesByProduct = () => {
-  return api.get('sales/product');
-};
+export const getSalesByProduct = async() => {
+ return await consultar('Pedidos/product');
+}
 
 // Função para obter todos os pedidos
-export const getOrders = () => {
-  return api.get('sales/orders');
-};
+export const getOrders = async() => {
+ return await consultar('Pedidos/orders');
+}
+const consultar = async (url) => {
+  const response = await api.get(url)
+  console.log(response.data)
+  return response.data
+
+}
