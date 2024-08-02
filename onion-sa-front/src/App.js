@@ -1,17 +1,17 @@
-// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './Components/Navbar'; // Ajuste o caminho conforme a estrutura do seu projeto
 import ImportForm from './Components/ImportForm';
 import DataDisplay from './Components/DataDisplay';
-import Navigation from './Components/Navigation';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <Router>
-      <Navigation />
+      <Header />
       <Routes>
-        <Route path="/" element={<ImportForm />} />
+        <Route path="/import" element={<ImportForm />} />
         <Route path="/data" element={<DataDisplay />} />
+        <Route path="/" element={<ImportForm />} /> {/* Ou qualquer outro componente de página inicial */}
       </Routes>
     </Router>
   );

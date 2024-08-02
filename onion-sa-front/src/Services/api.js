@@ -24,17 +24,17 @@ export const importOrders = (file) => {
 
 // Função para obter vendas por região
 export const getSalesByRegion = async () => {
-  return await consultar('Pedidos/region');
+  return await consultar('pedidos/regiao');
 }
 
 // Função para obter vendas por produto
 export const getSalesByProduct = async() => {
- return await consultar('Pedidos/product');
+ return await consultar('pedidos/produto');
 }
 
 // Função para obter todos os pedidos
 export const getOrders = async() => {
- return await consultar('Pedidos/orders');
+ return await consultar('pedidos/lista');
 }
 const consultar = async (url) => {
   const response = await api.get(url)
